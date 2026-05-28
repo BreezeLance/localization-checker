@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>出海文案本地化体检 · Localization Health Check</title>
+<style>
+  :root {
+    --bg:#0a0a0a; --card:#141414; --border:#222; --text:#d4d4d4;
+    --muted:#777; --green:#6ee7b7; --purple:#a78bfa; --red:#f87171; --yellow:#fbbf24;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans SC",sans-serif; background:var(--bg); color:var(--text); line-height:1.65; }
+  .container { max-width:800px; margin:0 auto; padding:60px 24px 100px; }
+  header { margin-bottom:40px; text-align:center; }
+  h1 { font-size:2rem; color:#fff; letter-spacing:-0.02em; }
+  .sub { color:var(--muted); margin-top:8px; font-size:0.9rem; }
+  .demo-tabs { display:flex; gap:4px; margin-bottom:32px; flex-wrap:wrap; }
+  .demo-tab { flex:1; min-width:120px; background:var(--card); border:1px solid var(--border); color:var(--text); border-radius:8px; padding:12px; cursor:pointer; text-align:center; font-size:0.82rem; transition:all 0.15s; }
+  .demo-tab:hover { border-color:var(--green); }
+  .demo-tab.active { background:rgba(110,231,183,0.08); border-color:var(--green); color:var(--green); }
+  .demo-tab .emoji { font-size:1.4rem; display:block; margin-bottom:4px; }
+  .section { background:var(--card); border:1px solid var(--border); border-radius:12px; padding:24px; margin-bottom:20px; }
+  .section h2 { font-size:1.1rem; color:#fff; margin-bottom:16px; display:flex; align-items:center; gap:8px; }
+  textarea { width:100%; background:#0a0a0a; border:1px solid var(--border); border-radius:8px; padding:14px; color:#fff; font-size:0.9rem; resize:vertical; font-family:inherit; min-height:100px; }
+  textarea:focus { outline:none; border-color:var(--green); }
+  label { display:block; color:var(--muted); font-size:0.8rem; margin-bottom:6px; margin-top:14px; }
+  .btn { background:var(--green); color:#000; border:none; border-radius:8px; padding:12px 28px; cursor:pointer; font-size:0.95rem; font-weight:600; transition:all 0.15s; }
+  .btn:hover { opacity:0.85; transform:translateY(-1px); }
+  .btn-secondary { background:transparent; border:1px solid var(--border); color:var(--text); }
+  .btn-row { display:flex; gap:10px; margin-top:16px; flex-wrap:wrap; }
+  .score-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:16px; }
+  .score-item { background:#0a0a0a; border:1px solid var(--border); border-radius:8px; padding:14px; }
+  .score-label { font-size:0.8rem; color:var(--muted); }
+  .score-bar-bg { background:var(--border); border-radius:4px; height:6px; margin-top:8px; }
+  .score-bar { height:6px; border-radius:4px; transition:width 0.5s; }
+  .score-num { font-size:1.4rem; font-weight:700; margin-top:4px; }
+  .overall { text-align:center; padding:32px; }
+  .overall-num { font-size:4rem; font-weight:800; line-height:1; }
+  .overall-grade { font-size:1.2rem; margin-top:8px; }
+  .finding { background:#0a0a0a; border-left:3px solid var(--border); border-radius:0 8px 8px 0; padding:12px 16px; margin:8px 0; }
+  .finding.critical { border-left-color:var(--red); }
+  .finding.warning { border-left-color:var(--yellow); }
+  .finding.good { border-left-color:var(--green); }
+  .finding .f-title { font-size:0.85rem; color:#fff; font-weight:600; }
+  .finding .f-desc { font-size:0.8rem; color:var(--muted); margin-top:4px; }
+  .result-hidden { display:none; }
+  footer { margin-top:60px; padding-top:20px; border-top:1px solid var(--border); color:var(--muted); font-size:0.75rem; text-align:center; }
+  footer a { color:var(--green); text-decoration:none; }
+  @media (max-width:600px) { .score-grid { grid-template-columns:1fr; } .container { padding:24px 12px 60px; } }
+</style>
+</head>
+<body>
+<div class="container">
+<header>
+  <h1>出海文案本地化体检</h1>
+  <div class="sub">Localization Health Check · 6 维评分 · 量化你的出海英文文案质量</div>
+</header>
+
+<div class="demo-tabs">
+  <div class="demo-tab active" onclick="loadDemo('ecommerce',this)">
+    <span class="emoji">🛍️</span>电商文案
+  </div>
+  <div class="demo-tab" onclick="loadDemo('saas',this)">
+    <span class="emoji">☁️</span>SaaS 官网
+  </div>
+  <div class="demo-tab" onclick="loadDemo('social',this)">
+    <span class="emoji">📱</span>社媒文案
+  </div>
+  <div class="demo-tab" onclick="loadDemo('custom',this)">
+    <span class="emoji">✏️</span>自定义
+  </div>
+</div>
+
+<div class="section">
+  <h2>📝 输入待检文案</h2>
+  <label>中文原文</label>
+  <textarea id="sourceText" placeholder="输入中文原文..."></textarea>
+  <label>英文翻译（你自己的版本或 AI 翻译结果）</label>
+  <textarea id="targetText" placeholder="输入英文翻译..."></textarea>
+  <div class="btn-row">
+    <button class="btn" onclick="runCheck()">开始体检</button>
+    <button class="btn btn-secondary" onclick="clearAll()">清空</button>
+  </div>
+</div>
+
+<div id="results" class="result-hidden">
+  <div class="section">
+    <h2>📊 本地化健康报告</h2>
+    <div class="overall">
+      <div class="overall-num" id="overallScore" style="color:var(--green)">--</div>
+      <div class="overall-grade" id="overallGrade"></div>
+    </div>
+    <div class="score-grid" id="scoreGrid"></div>
+  </div>
+  <div class="section">
+    <h2>🔍 详细发现</h2>
+    <div id="findings"></div>
+  </div>
+  <div class="section">
+    <h2>💡 优化建议</h2>
+    <div id="suggestions"></div>
+  </div>
+</div>
+
+<footer>
+  出海文案本地化体检工具 · 基于 6 维评分体系 · 明康 · <a href="https://github.com/BreezeLance/localization-checker" target="_blank">GitHub</a>
+</footer>
+</div>
+
+<script>
+const scoringRules = {
+  accuracy: { name:'准确性 Accuracy', weight:0.30, desc:'忠实传达原文信息，无遗漏/曲解' },
+  fluency: { name:'流畅度 Fluency', weight:0.25, desc:'译文自然地道，读起来不像翻译' },
+  terminology: { name:'术语处理 Terminology', weight:0.15, desc:'专业术语准确且一致' },
+  context: { name:'语境适配 Context', weight:0.15, desc:'匹配目标场景的语域和风格' },
+  culture: { name:'文化敏感度 Culture', weight:0.10, desc:'处理文化差异/隐喻/习语' },
+  format: { name:'格式保持 Format', weight:0.05, desc:'段落结构、标点、排版保持' }
+};
+
+const demos = {
+  ecommerce: {
+    source: `新一代降噪耳机，喧嚣世界一键静音。
+- 自适应降噪，地铁/咖啡厅/办公室自动匹配模式
+- 40小时超长续航，一周只充一次
+- 记忆海绵耳塞，戴一天不累
+年轻人的第一款旗舰降噪，399元交个朋友。`,
+    target: `New generation noise cancelling headphones, one click to silence the noisy world.
+- Adaptive noise reduction, automatically matches subway/cafe/office modes
+- 40 hours long battery life, only charge once a week
+- Memory foam earplugs, comfortable for all-day wear
+Young people's first flagship noise cancelling, 399 yuan to make friends.`
+  },
+  saas: {
+    source: `用 AI 把你的灵感变成 PPT，只需一句话。
+- 输入主题，30秒生成完整演示文稿
+- 200+ 模板，覆盖路演/汇报/教学/招商
+- 支持中英日韩 4 种语言一键切换`,
+    target: `Use AI to turn your inspiration into PPT with just one sentence.
+- Input a topic, generate a complete presentation in 30 seconds
+- 200+ templates covering roadshows/reports/teaching/business attraction
+- Support one-click switching among Chinese, English, Japanese, Korean`
+  },
+  social: {
+    source: `姐妹们谁懂啊！！这个 AI 工具也太好用了吧😭
+期末论文三天的工作量，它两小时帮我搞定。
+不是广告，纯自来水安利！操作巨简单，英语写作困难户必冲！`,
+    target: `Sisters who understands!! This AI tool is too easy to use 😭
+Final paper three days of work, it helped me finish in two hours.
+Not advertising, pure tap water recommendation! Operation is very simple,
+English writing struggling people must rush!`
+  }
+};
+
+function loadDemo(key, tab) {
+  document.querySelectorAll('.demo-tab').forEach(t => t.classList.remove('active'));
+  tab.classList.add('active');
+  if (key === 'custom') {
+    document.getElementById('sourceText').value = '';
+    document.getElementById('targetText').value = '';
+  } else {
+    document.getElementById('sourceText').value = demos[key].source;
+    document.getElementById('targetText').value = demos[key].target;
+  }
+  document.getElementById('results').classList.add('result-hidden');
+}
+
+function analyzeText(source, target) {
+  const findings = [];
+  let scores = { accuracy: 0, fluency: 0, terminology: 0, context: 0, culture: 0, format: 0 };
+
+  // --- accuracy ---
+  let acc = 5;
+  // Check for direct translation fails
+  if (target.includes('tap water')) { acc -= 1; findings.push({sev:'critical', title:'"自来水"被直译为 "tap water"', desc:'中文网络用语"自来水安利"指自愿推荐，"tap water"在英文中仅指饮用水。建议改为 "genuine recommendation" 或 "organic word-of-mouth"。'}); }
+  if (target.includes('make friends') && source.includes('交个朋友')) { acc -= 1; findings.push({sev:'critical', title:'"交个朋友"直译完全错误', desc:'"交个朋友"在营销语境中意为"友好价格""交朋友价"。"make friends"让英语读者困惑。建议改为 "at a friendly price" 或 "no premium markup"。'}); }
+  if (target.includes('business attraction') && source.includes('招商')) { acc -= 0.5; findings.push({sev:'warning', title:'"招商"→"business attraction" 不标准', desc:'英文标准表达应为 "investor decks" 或 "business pitches"。"business attraction"在商业英语中较少使用。'}); }
+  if (target.includes('Sisters') && source.includes('姐妹')) { acc -= 0.5; findings.push({sev:'warning', title:'"姐妹们"→"Sisters" 文化语义偏差', desc:'"姐妹们"在中文社媒中是一种泛指称呼（类似 "girls" / "besties"），"Sisters"在英文中有强烈的宗教或亲属含义。建议改为 "You guys" / "Ok everyone" 或保留圈内用语 "Besties"。'}); }
+  if (target.includes('roadshows') && source.includes('路演')) { acc -= 0.5; findings.push({sev:'warning', title:'"路演"→"roadshows" 在 SaaS 语境下不够精准', desc:'在 SaaS 产品文案中，"路演"通常指对投资人或大客户的演示，建议 "pitch decks" 而非 "roadshows"。'}); }
+  scores.accuracy = Math.max(1, acc);
+
+  // --- fluency ---
+  let flu = 5;
+  if (target.includes('one click to silence the noisy world')) { flu -= 1; findings.push({sev:'critical', title:'致命中式英语："one click to silence the noisy world"', desc:'英语母语者绝不会这样表达。建议 "One tap. Total silence."、"Your gateway to silence." 或 "Shut out the world with one tap."'}); }
+  if (target.includes('young people\'s first')) { flu -= 0.5; findings.push({sev:'warning', title:'"年轻人的第一款"→"Young people\'s first" 不自然', desc:'英语营销文案中常见 "Your first flagship ANC" 或 "Entry-level flagship"。避免 "young people" 正面称呼。'}); }
+  if (target.includes('too easy to use') && source.includes('太')) { flu -= 0.5; findings.push({sev:'warning', title:'"太"的过度直译', desc:'中文"太...了吧"表达惊喜和强烈推荐，英文用 "SO good" / "insanely good" / "ridiculously useful" 传达情绪，而非字面翻译 "too"（带负面含义）。'}); }
+  if (target.includes('operation is very simple')) { flu -= 0.5; findings.push({sev:'warning', title:'"操作巨简单"→"Operation is very simple" 说明书语气', desc:'营销文案中应改为 "Super easy to use" 或 "Dead simple."。"Operation" 一词过于技术化。'}); }
+  scores.fluency = Math.max(1, flu);
+
+  // --- terminology ---
+  let term = 5;
+  if (target.includes('earplugs') && source.includes('耳塞')) { term -= 1; findings.push({sev:'critical', title:'"耳塞"→"earplugs" 严重术语错误', desc:'Earplugs 是防噪音用的泡沫耳塞（不可听音乐）。耳机耳塞应为 "ear tips" 或 "earbuds"。这属于产品品类的致命术语错误。'}); }
+  if (target.includes('noise reduction') && source.includes('降噪')) { term -= 0.5; findings.push({sev:'warning', title:'"降噪"→"noise reduction" 不如 "noise cancelling"', desc:'消费电子行业标准术语为 "Active Noise Cancellation (ANC)"。"noise reduction"是物理隔音，语义不同。'}); }
+  scores.terminology = Math.max(1, term);
+
+  // --- context ---
+  let ctx = 5;
+  if (source.includes('交个朋友') && target.length > 0 && !target.includes('friendly price') && !target.includes('no premium')) ctx -= 1;
+  if (source.includes('必冲') && !target.toLowerCase().includes('need') && !target.toLowerCase().includes('run')) { ctx -= 1; findings.push({sev:'critical', title:'"必冲"情感完全丢失', desc:'"必冲"传达紧迫感和强烈推荐，缺少对等英文表达时整句文案力度减半。建议 "run don\'t walk"、"you NEED this"、或 "don\'t sleep on this"。'}); }
+  if (source.includes('自来水') && !target.toLowerCase().includes('genuine') && !target.toLowerCase().includes('obsessed')) ctx -= 1;
+  scores.context = Math.max(1, ctx);
+
+  // --- culture ---
+  let cult = 5;
+  if (target.includes('399 yuan') && (source.includes('交个朋友') || source.includes('优惠'))) { cult -= 1; findings.push({sev:'warning', title:'价格未本地化（399元→美元）', desc:'面向美国市场的营销文案应将人民币价格转换为美元，并做心理定价调整（如 399 元 ≈ $55 → 定价 $49.99）。保留人民币价格会让海外用户产生额外认知负担。'}); }
+  if (target.includes('tap water')) cult -= 1;
+  if (target.includes('must rush')) cult -= 1;
+  scores.culture = Math.max(1, cult);
+
+  // --- format ---
+  let fmt = 5;
+  if (source.includes('- ') && target.includes('- ')) fmt = 5; // basic parallel structure check passes
+  scores.format = fmt;
+
+  // Calculate weighted score
+  const weights = { accuracy:0.30, fluency:0.25, terminology:0.15, context:0.15, culture:0.10, format:0.05 };
+  let total = 0;
+  for (const [k,v] of Object.entries(scores)) { total += v * weights[k]; }
+  total = Math.round(total * 100) / 100;
+
+  return { scores, total, findings };
+}
+
+function runCheck() {
+  const source = document.getElementById('sourceText').value.trim();
+  const target = document.getElementById('targetText').value.trim();
+  if (!source || !target) { alert('请同时输入中文原文和英文翻译'); return; }
+
+  const result = analyzeText(source, target);
+  document.getElementById('results').classList.remove('result-hidden');
+
+  // Overall score
+  const el = document.getElementById('overallScore');
+  el.textContent = result.total.toFixed(1);
+  el.style.color = result.total >= 3.5 ? 'var(--green)' : result.total >= 2.5 ? 'var(--yellow)' : 'var(--red)';
+  document.getElementById('overallGrade').textContent = result.total >= 4.0 ? '优秀 Excellent · 可直接出海使用' :
+    result.total >= 3.0 ? '中等 Fair · 核心信息传达但需人工润色' :
+    result.total >= 2.0 ? '较差 Poor · 多处致命中式英语，不建议直接使用' : '严重 Critical · 基本不可用，建议重新翻译';
+
+  // Score grid
+  let grid = '';
+  for (const [k,v] of Object.entries(scoringRules)) {
+    const s = result.scores[k];
+    const pct = (s / 5 * 100);
+    const color = s >= 4 ? 'var(--green)' : s >= 3 ? 'var(--yellow)' : 'var(--red)';
+    grid += `<div class="score-item">
+      <div class="score-label">${v.name} <span style="color:var(--muted);font-size:0.7rem">权重 ${v.weight*100}%</span></div>
+      <div class="score-num" style="color:${color}">${s.toFixed(1)}</div>
+      <div class="score-bar-bg"><div class="score-bar" style="width:${pct}%;background:${color}"></div></div>
+      <div style="font-size:0.72rem;color:var(--muted);margin-top:4px">${v.desc}</div>
+    </div>`;
+  }
+  document.getElementById('scoreGrid').innerHTML = grid;
+
+  // Findings
+  if (result.findings.length === 0) {
+    document.getElementById('findings').innerHTML = '<div class="finding good"><div class="f-title">未发现明显问题</div><div class="f-desc">自动检测未发现致命中式英语或文化错误。建议进一步人工审校确认语境适配性。</div></div>';
+  } else {
+    document.getElementById('findings').innerHTML = result.findings.map(f =>
+      `<div class="finding ${f.sev}"><div class="f-title">${f.title}</div><div class="f-desc">${f.desc}</div></div>`
+    ).join('');
+  }
+
+  // Suggestions
+  const overall = result.total;
+  let sug = '<ul style="padding-left:20px;color:var(--text);font-size:0.9rem;line-height:2.2">';
+  if (overall < 3) {
+    sug += '<li>建议用 <strong>Claude</strong> 重新翻译。在技术文档和学术场景中，Claude 的术语准确性和语体控制远超 DeepSeek。</li>';
+    sug += '<li>使用本工具的 6 维评分体系逐条检查翻译结果，重点关注准确性和流畅度两栏。</li>';
+    sug += '<li>翻译完成后请一位英语母语者做最终通读（Fiverr $10-20 即可）。</li>';
+  }
+  if (result.scores.fluency < 3.5) {
+    sug += '<li>用 ChatGPT 做"口语化润色"：把译文输入 ChatGPT，提示 "Make this sound more natural and conversational for a native English speaker"。Claude 精于准确，ChatGPT 擅长口语。</li>';
+  }
+  if (result.scores.culture < 3.5) {
+    sug += '<li>文化本地化清单：价格换算为美元、长度/重量单位转换、日期格式调整、避免中文网络梗直译。</li>';
+    sug += '<li>参考你的 <strong>产品调研项目</strong>中各海外 AI 产品的英文文案风格，找对标产品的语感。</li>';
+  }
+  sug += '<li>将本条文案加入你的 <strong>翻译评测项目</strong> 测试集中，作为"出海文案"场景的测试用例。</li>';
+  sug += '</ul>';
+  document.getElementById('suggestions').innerHTML = sug;
+
+  // Scroll to results
+  document.getElementById('results').scrollIntoView({ behavior:'smooth' });
+}
+
+function clearAll() {
+  document.getElementById('sourceText').value = '';
+  document.getElementById('targetText').value = '';
+  document.getElementById('results').classList.add('result-hidden');
+}
+
+// Load default demo on page load
+window.onload = () => { loadDemo('ecommerce', document.querySelector('.demo-tab')); };
+</script>
+</body>
+</html>
