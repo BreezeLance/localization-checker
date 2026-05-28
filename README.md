@@ -1,16 +1,29 @@
 # 出海文案本地化体检工具
 
-> Localization Health Check for Global Markets
+> Localization Health Report Generator
 >
-> 在线交互式工具：6 维评分 × 自动检测致命中式英语 × 文化适配检查 × 优化建议
+> 零成本 · 免 API Key · 5 步完成中英文案本地化质量评估
 
 ## 在线使用
 
 https://breezelance.github.io/localization-checker/
 
-## 功能说明
+## 工作原理
 
-输入中文原文和英文翻译，工具自动从 6 个维度进行本地化质量评估：
+```
+输入中英文案 → 生成结构化评测 Prompt → 一键打开 DeepSeek/豆包/Claude
+  → AI 返回评测结果 → 粘贴回工具 → 自动解析渲染为可视化报告
+```
+
+### 为什么不需要 API Key？
+
+工具生成专业的 6 维评测 Prompt（内含完整评分标准和输出格式要求），
+用户将其粘贴到**自己已有账号的免费 AI**（DeepSeek 免费版 / 豆包免费版 / Claude）中执行评测，
+再将 AI 返回的结果粘贴回工具，工具自动解析并渲染为可视化评分报告。
+
+> **用户花的是 AI 平台已有的免费额度，不需要额外 API Key，零成本。**
+
+## 6 维评分体系
 
 | 维度 | 权重 | 检查内容 |
 |------|------|----------|
@@ -23,37 +36,29 @@ https://breezelance.github.io/localization-checker/
 
 ## 内置 Demo
 
-工具预置了 3 个典型出海场景的示例文案，点击标签即可切换：
+3 个典型出海场景的反面案例，附带真实 Claude 评测结果：
 
-| Demo | 场景 | 展示的典型问题 |
-|------|------|-------------|
-| 电商文案 | 降噪耳机产品描述 | "自来水""交个朋友"文化直译灾难 |
-| SaaS 官网 | AI PPT 工具介绍 | 功能列表逐字翻译、SEO 不友好 |
-| 社媒文案 | 小红书风格种草帖 | 网络用语、情绪表达跨文化适配 |
-
-也支持"自定义"模式，粘贴你自己的文案进行体检。
-
-## 典型输出
-
-- **综合健康分**：加权总分 + 评级（优秀/中等/较差/严重）
-- **6 维雷达**：各维度独立得分 + 可视化进度条
-- **详细发现**：按严重程度分类的具体问题清单（致命/警告/良好）
-- **优化建议**：针对薄弱维度的可操作改进方案
+| Demo | 场景 | 得分 | 典型问题 |
+|------|------|------|----------|
+| 电商文案 | 降噪耳机 | 1.6 | "自来水→tap water""交个朋友→make friends""耳塞→earplugs" |
+| SaaS 官网 | AI PPT 工具 | 2.5 | "招商→business attraction""路演→roadshows" |
+| 社媒文案 | 小红书种草 | 1.2 | "姐妹们→Sisters""必冲→must rush""自来水→pure tap water" |
 
 ## 项目价值
 
 - 面向 AI 产品运营 / 出海内容运营岗位的作品集项目
-- 展示产品设计能力：将翻译评测框架落地为可交互工具
-- 展示商业洞察力：从 10 款海外 AI 产品调研中提炼本地化规律
+- 展示产品设计能力：将评测框架落地为可交互 Web 工具
+- 展示 Prompt Engineering 能力：结构化评测 Prompt 的设计和优化
+- 展示前端能力：报告解析、可视化渲染
 
 ## 技术栈
 
-纯静态 HTML/CSS/JavaScript，GitHub Pages 部署，无需后端。
+纯静态 HTML/CSS/JavaScript，GitHub Pages 部署，零后端。
 
 ## 配套项目
 
 - [翻译对比评测](https://github.com/BreezeLance/translation-benchmark) — 4 场景 × 6 维评分体系的理论基础
-- [产品调研](https://github.com/BreezeLance/ai-product-research) — 10 款海外 AI 产品分析的商业洞察来源
+- [产品调研](https://github.com/BreezeLance/ai-product-research) — 10 款海外 AI 产品分析的商业洞察
 - [提示词库 Web 版](https://breezelance.github.io/prompt-library-web/) — 20 条结构化提示词，可搜索、中英双语
 
 ## 许可
