@@ -12,128 +12,162 @@
   * { margin:0; padding:0; box-sizing:border-box; }
   body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans SC",sans-serif; background:var(--bg); color:var(--text); line-height:1.65; }
   .container { max-width:820px; margin:0 auto; padding:60px 24px 100px; }
-  header { margin-bottom:40px; text-align:center; }
+  header { margin-bottom:36px; text-align:center; }
   h1 { font-size:2rem; color:#fff; letter-spacing:-0.02em; }
   .sub { color:var(--muted); margin-top:8px; font-size:0.9rem; }
 
-  .tab-bar { display:flex; gap:4px; margin-bottom:32px; flex-wrap:wrap; }
-  .tab { flex:1; min-width:120px; background:var(--card); border:1px solid var(--border); color:var(--text); border-radius:8px; padding:12px; cursor:pointer; text-align:center; font-size:0.82rem; transition:all 0.15s; }
+  .tab-bar { display:flex; gap:4px; margin-bottom:28px; flex-wrap:wrap; }
+  .tab { flex:1; min-width:100px; background:var(--card); border:1px solid var(--border); color:var(--text); border-radius:8px; padding:12px 8px; cursor:pointer; text-align:center; font-size:0.8rem; transition:all 0.15s; }
   .tab:hover { border-color:var(--green); }
   .tab.active { background:rgba(110,231,183,0.08); border-color:var(--green); color:var(--green); }
-  .tab .emoji { font-size:1.4rem; display:block; margin-bottom:4px; }
+  .tab .emoji { font-size:1.3rem; display:block; margin-bottom:3px; }
 
-  .section { background:var(--card); border:1px solid var(--border); border-radius:12px; padding:24px; margin-bottom:20px; }
-  .section h2 { font-size:1.1rem; color:#fff; margin-bottom:16px; display:flex; align-items:center; gap:8px; }
+  .section { background:var(--card); border:1px solid var(--border); border-radius:12px; padding:24px; margin-bottom:18px; }
+  .section h2 { font-size:1.05rem; color:#fff; margin-bottom:14px; display:flex; align-items:center; gap:8px; }
 
-  textarea { width:100%; background:#0a0a0a; border:1px solid var(--border); border-radius:8px; padding:14px; color:#fff; font-size:0.9rem; resize:vertical; font-family:inherit; min-height:100px; }
+  textarea { width:100%; background:#0a0a0a; border:1px solid var(--border); border-radius:8px; padding:14px; color:#fff; font-size:0.9rem; resize:vertical; font-family:inherit; min-height:90px; }
   textarea:focus { outline:none; border-color:var(--green); }
-  label { display:block; color:var(--muted); font-size:0.8rem; margin-bottom:6px; margin-top:14px; }
+  label { display:block; color:var(--muted); font-size:0.8rem; margin-bottom:6px; margin-top:12px; }
+  select { width:100%; background:#0a0a0a; border:1px solid var(--border); color:#fff; border-radius:8px; padding:10px 14px; font-size:0.85rem; margin-top:6px; }
 
-  .btn { background:var(--green); color:#000; border:none; border-radius:8px; padding:12px 28px; cursor:pointer; font-size:0.95rem; font-weight:600; transition:all 0.15s; }
+  .btn { background:var(--green); color:#000; border:none; border-radius:8px; padding:12px 24px; cursor:pointer; font-size:0.9rem; font-weight:600; transition:all 0.15s; }
   .btn:hover { opacity:0.85; transform:translateY(-1px); }
   .btn-secondary { background:transparent; border:1px solid var(--border); color:var(--text); }
-  .btn-row { display:flex; gap:10px; margin-top:16px; flex-wrap:wrap; }
+  .btn-copy { background:var(--purple); color:#fff; }
+  .btn-row { display:flex; gap:10px; margin-top:14px; flex-wrap:wrap; }
 
-  .prompt-box { background:#0a0a0a; border:1px solid var(--border); border-radius:10px; padding:18px; margin-top:16px; max-height:500px; overflow-y:auto; position:relative; }
-  .prompt-box pre { white-space:pre-wrap; word-break:break-word; font-size:0.84rem; color:var(--text); font-family:inherit; line-height:1.7; }
-  .copy-float { position:sticky; top:0; float:right; background:var(--green); color:#000; border:none; border-radius:6px; padding:6px 16px; cursor:pointer; font-size:0.8rem; font-weight:600; z-index:1; }
-  .copy-float:hover { opacity:0.85; }
+  .prompt-preview { background:#0a0a0a; border:1px solid var(--border); border-radius:10px; padding:16px; max-height:350px; overflow-y:auto; }
+  .prompt-preview pre { white-space:pre-wrap; word-break:break-word; font-size:0.82rem; color:var(--text); font-family:inherit; line-height:1.7; }
+
+  .step-indicator { display:flex; gap:16px; margin-bottom:20px; }
+  .step { flex:1; text-align:center; }
+  .step-num { display:inline-block; width:28px; height:28px; line-height:28px; border-radius:50%; background:var(--border); color:var(--muted); font-size:0.8rem; font-weight:700; }
+  .step.active .step-num { background:var(--green); color:#000; }
+  .step.done .step-num { background:var(--green); color:#000; }
+  .step-label { font-size:0.7rem; color:var(--muted); margin-top:4px; }
+
+  .ai-options { display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px; margin-top:12px; }
+  .ai-option { background:#0a0a0a; border:1px solid var(--border); border-radius:8px; padding:14px; cursor:pointer; text-align:center; transition:all 0.15s; }
+  .ai-option:hover { border-color:var(--green); }
+  .ai-option.selected { border-color:var(--green); background:rgba(110,231,183,0.06); }
+  .ai-option .ai-name { font-size:0.9rem; color:#fff; font-weight:600; }
+  .ai-option .ai-tag { font-size:0.7rem; color:var(--green); margin-top:2px; }
+  .ai-option .ai-note { font-size:0.7rem; color:var(--muted); margin-top:4px; }
+
+  .result-area { display:none; }
+  .result-area.show { display:block; }
+
+  .howto { font-size:0.82rem; color:var(--muted); background:rgba(110,231,183,0.05); border:1px solid rgba(110,231,183,0.12); border-radius:8px; padding:14px; margin-top:12px; line-height:1.9; }
+  .howto strong { color:var(--green); }
 
   .demo-section { display:none; }
   .demo-section.active { display:block; }
 
-  .score-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:16px; }
-  .score-item { background:#0a0a0a; border:1px solid var(--border); border-radius:8px; padding:14px; }
-  .score-label { font-size:0.78rem; color:var(--muted); }
-  .score-num { font-size:1.3rem; font-weight:700; margin-top:4px; }
-  .overall { text-align:center; padding:28px; }
-  .overall-num { font-size:3.5rem; font-weight:800; line-height:1; }
-  .overall-grade { font-size:1.1rem; margin-top:8px; }
+  .score-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:14px; }
+  .score-item { background:#0a0a0a; border:1px solid var(--border); border-radius:8px; padding:12px; }
+  .score-label { font-size:0.76rem; color:var(--muted); }
+  .score-num { font-size:1.2rem; font-weight:700; margin-top:4px; }
+  .overall { text-align:center; padding:24px; }
+  .overall-num { font-size:3rem; font-weight:800; line-height:1; }
+  .overall-grade { font-size:1rem; margin-top:8px; }
 
   .finding { background:#0a0a0a; border-left:3px solid var(--border); border-radius:0 8px 8px 0; padding:12px 16px; margin:8px 0; }
-  .finding. critical { border-left-color:var(--red); }
+  .finding.critical { border-left-color:var(--red); }
   .finding.warning { border-left-color:var(--yellow); }
   .finding.good { border-left-color:var(--green); }
-  .finding .f-title { font-size:0.85rem; color:#fff; font-weight:600; }
-  .finding .f-desc { font-size:0.8rem; color:var(--muted); margin-top:4px; }
+  .finding .f-title { font-size:0.82rem; color:#fff; font-weight:600; }
+  .finding .f-desc { font-size:0.78rem; color:var(--muted); margin-top:4px; }
 
-  .howto { font-size:0.85rem; color:var(--muted); background:rgba(110,231,183,0.06); border:1px solid rgba(110,231,183,0.15); border-radius:8px; padding:14px; margin-top:16px; line-height:1.8; }
-  .howto strong { color:var(--green); }
+  .url-bar { display:flex; gap:8px; margin-top:8px; }
+  .url-bar input { flex:1; background:#0a0a0a; border:1px solid var(--border); border-radius:6px; padding:8px 12px; color:var(--green); font-size:0.8rem; }
 
-  footer { margin-top:60px; padding-top:20px; border-top:1px solid var(--border); color:var(--muted); font-size:0.75rem; text-align:center; }
+  footer { margin-top:60px; padding-top:20px; border-top:1px solid var(--border); color:var(--muted); font-size:0.73rem; text-align:center; }
   footer a { color:var(--green); text-decoration:none; }
-
-  @media (max-width:600px) { .score-grid { grid-template-columns:1fr; } .container { padding:24px 12px 60px; } h1 { font-size:1.5rem; } }
+  @media (max-width:600px) { .score-grid { grid-template-columns:1fr; } .container { padding:24px 12px 60px; } h1 { font-size:1.5rem; } .ai-options { grid-template-columns:1fr; } }
 </style>
 </head>
 <body>
 <div class="container">
 <header>
   <h1>出海文案本地化体检</h1>
-  <div class="sub">Localization Health Check · 生成评测 Prompt · 让 AI 替你打分</div>
+  <div class="sub">Localization Health Check · 零成本 · 免 API Key · 基于 Claude/ChatGPT/DeepSeek 真实评测</div>
 </header>
 
 <div class="tab-bar">
-  <div class="tab active" onclick="switchTab('tool', this)">
-    <span class="emoji">🔧</span>Prompt 生成器
-  </div>
-  <div class="tab" onclick="switchTab('ecommerce', this)">
-    <span class="emoji">🛍️</span>电商 Demo
-  </div>
-  <div class="tab" onclick="switchTab('saas', this)">
-    <span class="emoji">☁️</span>SaaS Demo
-  </div>
-  <div class="tab" onclick="switchTab('social', this)">
-    <span class="emoji">📱</span>社媒 Demo
-  </div>
+  <div class="tab active" onclick="switchTab('tool', this)"><span class="emoji">🚀</span>开始体检</div>
+  <div class="tab" onclick="switchTab('ecommerce', this)"><span class="emoji">🛍️</span>电商 Demo</div>
+  <div class="tab" onclick="switchTab('saas', this)"><span class="emoji">☁️</span>SaaS Demo</div>
+  <div class="tab" onclick="switchTab('social', this)"><span class="emoji">📱</span>社媒 Demo</div>
 </div>
 
-<!-- ====== 工具 Tab ====== -->
+<!-- ==================== 体检工具 Tab ==================== -->
 <div id="tab-tool" class="demo-section active">
   <div class="section">
-    <h2>📝 输入你的文案</h2>
+    <h2>步骤 1：输入原文</h2>
     <label>中文原文</label>
-    <textarea id="toolSource" placeholder="输入中文原文..."></textarea>
-    <label>英文翻译（你的版本或 AI 翻译结果）</label>
-    <textarea id="toolTarget" placeholder="输入英文翻译..."></textarea>
-
-    <label>文案类型（可选）</label>
-    <select id="toolCate" style="background:var(--card);border:1px solid var(--border);color:#fff;border-radius:8px;padding:10px 14px;font-size:0.9rem;margin-top:6px;width:100%">
+    <textarea id="tSource" placeholder="输入中文文案..."></textarea>
+    <label>英文翻译（你要检查的版本）</label>
+    <textarea id="tTarget" placeholder="输入英文翻译..."></textarea>
+    <label>文案类型</label>
+    <select id="tCate">
       <option value="电商/消费产品">电商/消费产品</option>
       <option value="SaaS/软件">SaaS/软件</option>
       <option value="社交媒体文案">社交媒体文案</option>
       <option value="品牌官网">品牌官网</option>
       <option value="其他">其他</option>
     </select>
+  </div>
 
+  <div class="section">
+    <h2>步骤 2：选择评测 AI</h2>
+    <div class="ai-options" id="aiOptions">
+      <div class="ai-option selected" data-ai="deepseek" onclick="selectAI('deepseek', this)">
+        <div class="ai-name">DeepSeek</div>
+        <div class="ai-tag">免费 · 推荐</div>
+        <div class="ai-note">chat.deepseek.com</div>
+      </div>
+      <div class="ai-option" data-ai="doubao" onclick="selectAI('doubao', this)">
+        <div class="ai-name">豆包</div>
+        <div class="ai-tag">免费</div>
+        <div class="ai-note">doubao.com</div>
+      </div>
+      <div class="ai-option" data-ai="claude" onclick="selectAI('claude', this)">
+        <div class="ai-name">Claude</div>
+        <div class="ai-tag">Pro 用户最佳</div>
+        <div class="ai-note">claude.ai</div>
+      </div>
+    </div>
     <div class="btn-row">
-      <button class="btn" onclick="generatePrompt()">生成评测 Prompt</button>
+      <button class="btn" onclick="doGenerate()">生成评测 Prompt</button>
       <button class="btn btn-secondary" onclick="clearTool()">清空</button>
     </div>
   </div>
 
-  <div id="promptResult" style="display:none">
-    <div class="section">
-      <h2>📋 评测 Prompt <span style="font-size:0.75rem;color:var(--muted);font-weight:400"> — 复制下面内容，粘贴到 Claude / ChatGPT / DeepSeek</span></h2>
-      <div class="prompt-box" id="promptBox">
-        <button class="copy-float" onclick="copyPrompt()">一键复制</button>
-        <pre id="promptContent"></pre>
-      </div>
-      <div class="howto">
-        <strong>使用方法：</strong>点击「一键复制」→ 粘贴到 Claude / ChatGPT / DeepSeek 对话框 → AI 将按 6 维评分给出完整评估报告。<br>
-        <strong>为什么这样做？</strong>纯静态网页无法调用 AI API，但这个 Prompt 经过反复迭代优化，比任何一个"自动检测算法"都更准确，因为它调用的是真正的 AI 判断力，而非几个正则表达式。
-      </div>
+  <div id="stepResult" class="section result-area">
+    <h2>步骤 3：复制 → 打开 → 粘贴 → 回车</h2>
+    <div class="howto">
+      <strong>自动操作：</strong>点击下方按钮后，评测 Prompt 已自动复制到剪贴板，同时打开你选择的 AI 网页。
+      在网页中 <strong>Ctrl+V 粘贴</strong>，然后按回车，等待 AI 返回结果即可。
+    </div>
+
+    <div class="prompt-preview" style="margin-top:14px;">
+      <pre id="promptPreview"></pre>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn" onclick="launchAndCopy()">复制 Prompt + 打开 AI 网页</button>
+      <button class="btn btn-copy" onclick="copyOnly()">只复制 Prompt</button>
     </div>
   </div>
 </div>
 
-<!-- ====== Demo Tabs ====== -->
+<!-- ==================== Demo Tabs ==================== -->
 <div id="tab-ecommerce" class="demo-section">
   <div class="section">
-    <h2>🛍️ 电商文案 Demo — 降噪耳机</h2>
+    <h2>🛍️ 电商 Demo — 降噪耳机（DeepSeek 直译 vs Claude 评测）</h2>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
-      <div><label>中文原文</label><div style="background:#0a0a0a;border:1px solid var(--border);border-radius:8px;padding:14px;font-size:0.85rem;color:var(--text)">新一代降噪耳机，喧嚣世界一键静音。<br>- 自适应降噪，地铁/咖啡厅/办公室自动匹配模式<br>- 40小时超长续航，一周只充一次<br>- 记忆海绵耳塞，戴一天不累<br>年轻人的第一款旗舰降噪，399元交个朋友。</div></div>
-      <div><label>英文翻译（反面案例：DeepSeek 直译版）</label><div style="background:#0a0a0a;border:1px solid var(--border);border-radius:8px;padding:14px;font-size:0.85rem;color:var(--text)">New generation noise cancelling headphones, one click to silence the noisy world.<br>- Adaptive noise reduction, matches subway/cafe/office modes<br>- 40 hours long battery life, only charge once a week<br>- Memory foam earplugs, comfortable for all-day wear<br>Young people's first flagship noise cancelling, 399 yuan to make friends.</div></div>
+      <div><label>中文原文</label><div style="background:#0a0a0a;border:1px solid var(--border);border-radius:8px;padding:14px;font-size:0.83rem;color:var(--text)">新一代降噪耳机，喧嚣世界一键静音。<br>- 自适应降噪，地铁/咖啡厅/办公室自动匹配<br>- 40小时超长续航，一周只充一次<br>- 记忆海绵耳塞，戴一天不累<br>年轻人的第一款旗舰降噪，399元交个朋友。</div></div>
+      <div><label>待检英文翻译</label><div style="background:#0a0a0a;border:1px solid var(--border);border-radius:8px;padding:14px;font-size:0.83rem;color:var(--text)">New generation noise cancelling headphones, one click to silence the noisy world.<br>- Adaptive noise reduction, matches subway/cafe/office modes<br>- 40 hours long battery life, only charge once a week<br>- Memory foam earplugs, comfortable for all-day wear<br>Young people's first flagship noise cancelling, 399 yuan to make friends.</div></div>
     </div>
   </div>
   <div id="demo-ecommerce-result"></div>
@@ -141,10 +175,10 @@
 
 <div id="tab-saas" class="demo-section">
   <div class="section">
-    <h2>☁️ SaaS 官网 Demo — AI PPT 工具</h2>
+    <h2>☁️ SaaS Demo — AI PPT 工具</h2>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
-      <div><label>中文原文</label><div style="background:#0a0a0a;border:1px solid var(--border);border-radius:8px;padding:14px;font-size:0.85rem;color:var(--text)">用 AI 把你的灵感变成 PPT，只需一句话。<br>- 输入主题，30秒生成完整演示文稿<br>- 200+ 模板，覆盖路演/汇报/教学/招商<br>- 支持中英日韩 4 种语言一键切换</div></div>
-      <div><label>英文翻译（反面案例：直译版）</label><div style="background:#0a0a0a;border:1px solid var(--border);border-radius:8px;padding:14px;font-size:0.85rem;color:var(--text)">Use AI to turn your inspiration into PPT with just one sentence.<br>- Input a topic, generate a complete presentation in 30 seconds<br>- 200+ templates covering roadshows/reports/teaching/business attraction<br>- Support one-click switching among Chinese, English, Japanese, Korean</div></div>
+      <div><label>中文原文</label><div style="background:#0a0a0a;border:1px solid var(--border);border-radius:8px;padding:14px;font-size:0.83rem;color:var(--text)">用 AI 把你的灵感变成 PPT，只需一句话。<br>- 输入主题，30秒生成完整演示文稿<br>- 200+ 模板，覆盖路演/汇报/教学/招商<br>- 支持中英日韩 4 种语言一键切换</div></div>
+      <div><label>待检英文翻译</label><div style="background:#0a0a0a;border:1px solid var(--border);border-radius:8px;padding:14px;font-size:0.83rem;color:var(--text)">Use AI to turn your inspiration into PPT with just one sentence.<br>- Input a topic, generate a complete presentation in 30 seconds<br>- 200+ templates covering roadshows/reports/teaching/business attraction<br>- Support one-click switching among Chinese, English, Japanese, Korean</div></div>
     </div>
   </div>
   <div id="demo-saas-result"></div>
@@ -152,123 +186,84 @@
 
 <div id="tab-social" class="demo-section">
   <div class="section">
-    <h2>📱 社媒文案 Demo — 小红书种草帖</h2>
+    <h2>📱 社媒 Demo — 小红书种草帖</h2>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
-      <div><label>中文原文</label><div style="background:#0a0a0a;border:1px solid var(--border);border-radius:8px;padding:14px;font-size:0.85rem;color:var(--text)">姐妹们谁懂啊！！这个 AI 工具也太好用了吧😭<br>期末论文三天的工作量，它两小时帮我搞定。<br>不是广告，纯自来水安利！操作巨简单，英语写作困难户必冲！</div></div>
-      <div><label>英文翻译（反面案例：逐字翻译版）</label><div style="background:#0a0a0a;border:1px solid var(--border);border-radius:8px;padding:14px;font-size:0.85rem;color:var(--text)">Sisters who understands!! This AI tool is too easy to use 😭<br>Final paper three days of work, it helped me finish in two hours.<br>Not advertising, pure tap water recommendation! Operation is very simple, English writing struggling people must rush!</div></div>
+      <div><label>中文原文</label><div style="background:#0a0a0a;border:1px solid var(--border);border-radius:8px;padding:14px;font-size:0.83rem;color:var(--text)">姐妹们谁懂啊！！这个 AI 工具也太好用了吧😭<br>期末论文三天的工作量，它两小时帮我搞定。<br>不是广告，纯自来水安利！操作巨简单，英语写作困难户必冲！</div></div>
+      <div><label>待检英文翻译</label><div style="background:#0a0a0a;border:1px solid var(--border);border-radius:8px;padding:14px;font-size:0.83rem;color:var(--text)">Sisters who understands!! This AI tool is too easy to use 😭<br>Final paper three days of work, it helped me finish in two hours.<br>Not advertising, pure tap water recommendation! Operation is very simple, English writing struggling people must rush!</div></div>
     </div>
   </div>
   <div id="demo-social-result"></div>
 </div>
 
 <footer>
-  出海文案本地化体检工具 · 6 维评分体系 · 明康 · <a href="https://github.com/BreezeLance/localization-checker" target="_blank">GitHub</a> · <a href="https://github.com/BreezeLance/translation-benchmark" target="_blank">理论来源</a>
+  出海文案本地化体检工具 · 零成本 · 免 API Key · <a href="https://github.com/BreezeLance/localization-checker" target="_blank">GitHub</a> · <a href="https://github.com/BreezeLance/translation-benchmark" target="_blank">6维评分体系</a>
 </footer>
 </div>
 
 <script>
-// ====== Pre-computed Demo Results (evaluated by Claude) ======
+// ====== Demo Data (real Claude evaluations) ======
 const demoResults = {
   ecommerce: {
-    total: 1.6, grade: '严重 Critical · 基本不可用，建议重新翻译',
-    scores: { accuracy:1.5, fluency:1.0, terminology:1.0, context:1.5, culture:1.0, format:4.0 },
-    findings: [
-      {sev:'critical',title:'"交个朋友"→"to make friends" — 致命文化误译',desc:'营销语境中意为"友好价格"，"make friends"让英语读者完全困惑。建议："at a friendly price" / "no premium markup"。'},
-      {sev:'critical',title:'"自来水安利" 被直译 — 概念丢失',desc:'中文网络用语意指"自愿推荐/口碑传播"。"tap water"在英文中仅指饮用水。建议："genuine recommendation" / "organic word-of-mouth"。'},
-      {sev:'critical',title:'"耳塞"→"earplugs" — 产品品类术语错误',desc:'Earplugs 是防噪音泡沫耳塞（不可听音乐）。耳机耳塞应为 "ear tips" 或 "earbuds"。这是严重的产品描述错误，可能引发退货。'},
-      {sev:'critical',title:'"一键静音"→"one click to silence" — 致命中式英语',desc:'英语母语者绝不会这样表达。建议："One tap. Total silence." 或 "Your gateway to silence."'},
-      {sev:'warning',title:'价格未本地化（399 元→应换算为美元 $49-$55）',desc:'面向美国市场的文案应将价格转换为美元并做心理定价优化。'},
-      {sev:'warning',title:'"年轻人的第一款"→不自然的直译',desc:'英语营销中避免正面称呼"young people"。建议："Your first flagship ANC."'}
+    total:1.6, grade:'严重 Critical · 建议重新翻译', color:'var(--red)',
+    scores:{ accuracy:1.5, fluency:1.0, terminology:1.0, context:1.5, culture:1.0, format:4.0 },
+    findings:[
+      {sev:'critical',title:'"交个朋友"→"to make friends"',desc:'营销语境意为"友好价格"。"make friends"让英语读者困惑。建议："at a friendly price"。'},
+      {sev:'critical',title:'"自来水"→"tap water"',desc:'中文网络用语指"自愿推荐"。"tap water"在英文中仅指饮用水。建议："genuine recommendation" / "organic word-of-mouth"。'},
+      {sev:'critical',title:'"耳塞"→"earplugs" 品类错误',desc:'Earplugs 是防噪音泡沫塞（不可听音乐）。正确术语："ear tips" 或 "earbuds"。'},
+      {sev:'critical',title:'"一键静音"→"one click to silence"',desc:'致命中式英语。建议："One tap. Total silence." 或 "Your gateway to silence."'},
+      {sev:'warning',title:'价格未本地化（399元应换算为$49-55）',desc:'面向美国市场需转换为美元并做心理定价。'},
+      {sev:'warning',title:'"年轻人的第一款"不自然',desc:'建议："Your first flagship ANC." / "Entry-level flagship ANC."'}
     ],
-    suggestions: [
-      '用 Claude 重新翻译整篇文案（Claude 在电商文案场景得分最高，参见翻译评测项目）',
-      '翻译完成后用 ChatGPT 做口语化润色，重点关注情感力度和营销节奏感',
-      '请英语母语者在 Fiverr 上做最终通读（$10-20），确保没有翻译腔',
-      '参考 Apple AirPods / Sony 的英文官网文案风格',
-      '价格换算为美元并做心理定价（$49.99 而非 $55）'
-    ]
+    suggestions:['用 Claude 重新翻译（电商文案场景 Claude 综合得分 4.86/5.0）','ChatGPT 做口语化润色，关注情感力度和营销节奏','请英语母语者在 Fiverr 上做最终通读（$10-20）','参考 Apple AirPods / Sony 的英文官网文案风格']
   },
   saas: {
-    total: 2.5, grade: '较差 Poor · 核心信息勉强传达但大量不自然表达',
-    scores: { accuracy:3.0, fluency:2.0, terminology:2.0, context:2.5, culture:3.0, format:4.0 },
-    findings: [
-      {sev:'warning',title:'"招商"→"business attraction" — 商业英语不标准',desc:'标准表达应为 "investor decks" / "business pitches" / "fundraising presentations"。'},
-      {sev:'warning',title:'"路演"→"roadshows" — SaaS 语境不够精准',desc:'SaaS 行业中通常指对投资人的演示，"pitch decks" / "investor presentations" 更准确。'},
-      {sev:'warning',title:'"PPT" 直接使用 — 品牌术语建议替换',desc:'国外更习惯 "presentation" / "slide deck" / "pitch deck"。"PPT" 虽可理解但有"Office 2003"的廉价感。'},
-      {sev:'warning',title:'"Input a topic" 过于生硬',desc:'SaaS 产品文案中更自然的表达："Type a topic" / "Enter your idea" / "Describe your topic"。'},
-      {sev:'warning',title:'整段缺乏品牌语气和节奏',desc:'英文 SaaS 文案通常注重简洁、节奏感、动作动词。本段从头到尾都是平铺直叙的功能描述。'}
+    total:2.5, grade:'较差 Poor · 核心信息勉强传达', color:'var(--yellow)',
+    scores:{ accuracy:3.0, fluency:2.0, terminology:2.0, context:2.5, culture:3.0, format:4.0 },
+    findings:[
+      {sev:'warning',title:'"招商"→"business attraction"',desc:'标准商务英语："investor decks" / "business pitches"。'},
+      {sev:'warning',title:'"路演"→"roadshows" SaaS语境不够精准',desc:'SaaS行业标准："pitch decks" / "investor presentations"。'},
+      {sev:'warning',title:'"PPT" 建议替换',desc:'国外习惯 "presentation" / "slide deck"。"PPT" 有"Office 2003"的廉价感。'},
+      {sev:'warning',title:'"Input a topic" 生硬',desc:'SaaS文案的自然表达："Type a topic" / "Enter your idea"。'},
+      {sev:'warning',title:'缺乏品牌语调和节奏',desc:'英文 SaaS 文案注重简洁、节奏感、动作动词。本段全是平铺直叙的功能描述。'}
     ],
-    suggestions: [
-      '用 Claude 重新翻译（Claude 在技术/商业文档中得分最高，参见翻译评测项目）',
-      '对标 Gamma.app 的英文官网文案，学习 SaaS 产品的文案风格',
-      '每句话控制在 10 词以内。英文 SaaS 文案偏好短句 + 动作动词',
-      '加入社交证明元素（"Loved by 10,000+ teams" / "Trusted by..."）',
-      '中文"一键切换"的英文对应概念是"instant"而非"one-click"'
-    ]
+    suggestions:['用 Claude 重新翻译（技术/商业文档场景 Claude 得分 5.0/5.0）','对标 Gamma.app 英文官网文案风格','每句控制在 10 词以内。SaaS 英文文案偏好短句','加入社交证明元素（"Loved by 10,000+ teams"）']
   },
   social: {
-    total: 1.2, grade: '严重 Critical · 完全不可用，英文读者完全无法理解',
-    scores: { accuracy:1.0, fluency:1.0, terminology:1.5, context:1.0, culture:0.5, format:4.0 },
-    findings: [
-      {sev:'critical',title:'"姐妹们"→"Sisters" — 灾难级文化错位',desc:'"Sisters"在英文中有强烈的宗教或亲属含义。中文社媒中的泛指用法应改为 "You guys" / "Besties" / "Ok everyone"。'},
-      {sev:'critical',title:'"自来水安利"→"pure tap water recommendation" — 完全不可理解',desc:'中文网络用语直译后对英语读者毫无意义。建议完全重写开头，用 "Not sponsored, just genuinely obsessed" 或 "No ad — real talk"。'},
-      {sev:'critical',title:'"必冲"→"must rush" — 不知所云',desc:'中文"冲"=赶紧去买/去做。英文应译为 "run, don\'t walk" / "you NEED this" / "don\'t sleep on this"。'},
-      {sev:'critical',title:'"太...了吧"→"too easy to use" — 情感完全丢失',desc:'"too"在英文中带负面含义。中文的"太...了吧"表达强烈惊喜推荐，应译为 "insanely good" / "ridiculously useful" / "SO good"。'},
-      {sev:'critical',title:'"操作巨简单"→"Operation is very simple" — 说明书语气',desc:'社媒文案应翻译为 "Super easy to use" / "Dead simple."，"Operation"一词过于技术化和生硬。'},
-      {sev:'warning',title:'整条文案的情感基调完全丢失',desc:'原文是充满情绪的小红书风格种草帖，译文读起来像错误提示信息。社媒文案翻译的核心不是"翻对字"，而是"翻译感觉"。'}
+    total:1.2, grade:'严重 Critical · 英文读者完全无法理解', color:'var(--red)',
+    scores:{ accuracy:1.0, fluency:1.0, terminology:1.5, context:1.0, culture:0.5, format:4.0 },
+    findings:[
+      {sev:'critical',title:'"姐妹们"→"Sisters" 灾难级文化错位',desc:'"Sisters"在英文有强烈宗教/亲属含义。社媒泛称："You guys" / "Besties" / "Ok everyone"。'},
+      {sev:'critical',title:'"自来水"→"pure tap water recommendation"',desc:'对英语读者完全无意义。建议："Not sponsored, just genuinely obsessed" / "No ad — real talk"。'},
+      {sev:'critical',title:'"必冲"→"must rush" 不知所云',desc:'"run, don\'t walk" / "you NEED this" / "don\'t sleep on this"。'},
+      {sev:'critical',title:'"太...了吧"→"too easy to use" 情感丢失',desc:'"too" 带负面含义。中文"太...了吧"表达惊喜："insanely good" / "SO good" / "ridiculously useful"。'},
+      {sev:'critical',title:'"操作巨简单"→"Operation is very simple"',desc:'社媒文案："Super easy to use" / "Dead simple."。"Operation"过于技术化。'},
+      {sev:'warning',title:'整条文案情感基调完全丢失',desc:'原文是充满情绪的小红书种草帖，译文读起来像错误提示信息。社媒翻译核心不是"翻对字"而是"翻译感觉"。'}
     ],
-    suggestions: [
-      '社媒文案绝对不能用逐字翻译。需要让 ChatGPT 做独立创作：告诉它核心信息，让它用英文母语者的方式表达',
-      '中文网络梗和感叹词（姐妹/冲/自来水/谁懂啊/太...了吧）都需要找到英文中的对等表达，而非字面翻译',
-      '参考 Glossier / Duolingo / Notion 的英文社媒账号风格',
-      '中→英社媒翻译最难的不是语言，是文化和情绪——这也正是"英语专业+AI"不可替代的价值'
-    ]
+    suggestions:['社媒文案绝不能逐字翻译。让 ChatGPT 用英文母语者方式独立创作','中文网络梗需找英文对等表达：姐妹→besties / 自来水→organic word-of-mouth / 冲→run don\'t walk','参考 Glossier / Duolingo / Notion 英文社媒账号风格','中→英社媒翻译最难的是文化和情绪——也正因如此"英语专业+AI"才有不可替代性']
   }
 };
 
-// ====== Demo Rendering ======
-function renderDemoResult(key) {
-  const d = demoResults[key];
-  let html = '<div class="section"><h2>📊 本地化健康报告</h2>';
-  html += `<div class="overall"><div class="overall-num" style="color:${d.total>=3.5?'var(--green)':d.total>=2.5?'var(--yellow)':'var(--red)'}">${d.total.toFixed(1)}</div><div class="overall-grade">${d.grade}</div></div>`;
-  html += '<div class="score-grid">';
-  const rules = [
-    {k:'accuracy',n:'准确性 Accuracy',w:'30%',d:'忠实传达原文信息，无遗漏/曲解'},
-    {k:'fluency',n:'流畅度 Fluency',w:'25%',d:'译文自然地道，读起来不像翻译'},
-    {k:'terminology',n:'术语处理 Terminology',w:'15%',d:'专业术语准确且一致'},
-    {k:'context',n:'语境适配 Context',w:'15%',d:'匹配目标场景的语域和风格'},
-    {k:'culture',n:'文化敏感度 Culture',w:'10%',d:'处理文化差异/隐喻/习语'},
-    {k:'format',n:'格式保持 Format',w:'5%',d:'段落结构、标点、排版保持'}
-  ];
-  rules.forEach(r => {
-    const s = d.scores[r.k];
-    const pct = s/5*100;
-    const color = s>=4?'var(--green)':s>=3?'var(--yellow)':'var(--red)';
-    html += `<div class="score-item"><div class="score-label">${r.n} <span style="color:var(--muted);font-size:0.7rem">权重 ${r.w}</span></div><div class="score-num" style="color:${color}">${s.toFixed(1)}</div><div style="background:var(--border);border-radius:4px;height:6px;margin-top:6px"><div style="width:${pct}%;height:6px;border-radius:4px;background:${color}"></div></div><div style="font-size:0.7rem;color:var(--muted);margin-top:4px">${r.d}</div></div>`;
-  });
-  html += '</div></div>';
+// ====== Selected AI ======
+let selectedAI = 'deepseek';
+const aiUrls = {
+  deepseek: 'https://chat.deepseek.com/',
+  doubao: 'https://www.doubao.com/chat/',
+  claude: 'https://claude.ai/chat/'
+};
 
-  html += '<div class="section"><h2>🔍 详细发现</h2>';
-  d.findings.forEach(f => {
-    html += `<div class="finding ${f.sev}"><div class="f-title">${f.title}</div><div class="f-desc">${f.desc}</div></div>`;
-  });
-  html += '</div>';
-
-  html += '<div class="section"><h2>💡 优化建议</h2><div class="howto" style="line-height:2">';
-  d.suggestions.forEach((s,i) => { html += `${i+1}. ${s}<br>`; });
-  html += '</div></div>';
-
-  document.getElementById(`demo-${key}-result`).innerHTML = html;
+function selectAI(key, el) {
+  selectedAI = key;
+  document.querySelectorAll('#aiOptions .ai-option').forEach(o => o.classList.remove('selected'));
+  el.classList.add('selected');
 }
 
 // ====== Prompt Generation ======
-function generatePrompt() {
-  const source = document.getElementById('toolSource').value.trim();
-  const target = document.getElementById('toolTarget').value.trim();
-  if (!source || !target) { alert('请同时输入中文原文和英文翻译'); return; }
-  const cate = document.getElementById('toolCate').value;
-
-  const prompt = `你是一位中英双语本地化质量评估专家。请对以下${cate}文案的英文翻译进行严格的 6 维评分。
+function buildPrompt() {
+  const source = document.getElementById('tSource').value.trim();
+  const target = document.getElementById('tTarget').value.trim();
+  if (!source || !target) return null;
+  const cate = document.getElementById('tCate').value;
+  return `你是一位中英双语本地化质量评估专家。请对以下${cate}文案的英文翻译进行严格的 6 维评分。
 
 ## 中文原文
 ${source}
@@ -276,114 +271,103 @@ ${source}
 ## 英文翻译
 ${target}
 
-## 评分标准（每个维度 1-5 分）
+## 评分标准（1-5 分）
 
-### 1. 准确性 Accuracy（权重 30%）
-- 5 分：完美传达原文所有信息，无遗漏、无曲解、无增译
-- 4 分：核心信息准确，仅 1-2 处轻微偏差
-- 3 分：大意正确但不精确，部分信息丢失或弱化
-- 2 分：多处信息丢失或扭曲
-- 1 分：严重误译，基本不可用
+1. **准确性 Accuracy（权重30%）** — 忠实传达原文信息，无遗漏/曲解
+2. **流畅度 Fluency（权重25%）** — 地道自然，无"翻译腔"
+3. **术语处理 Terminology（权重15%）** — 行业术语准确一致
+4. **语境适配 Context（权重15%）** — 匹配目标场景语域和风格
+5. **文化敏感度 Culture（权重10%）** — 文化差异/隐喻/习语/网络用语处理
+6. **格式保持 Format（权重5%）** — 段落/标点/排版
 
-### 2. 流畅度 Fluency（权重 25%）
-- 5 分：完全地道，英语母语者读不出"翻译感"
-- 4 分：整体自然，仅个别措辞不够地道
-- 3 分：可读但不流畅，有明显"翻译腔"
-- 2 分：多处生硬表达，读起来费力
-- 1 分：严重的中式英语，大量表达不通顺
+## 输出格式
 
-### 3. 术语处理 Terminology（权重 15%）
-- 5 分：所有专业术语准确且一致
-- 4 分：术语基本准确，个别可优化
-- 3 分：术语基本正确但不精准
-- 2 分：术语使用不当，可能引起混淆
-- 1 分：关键术语严重错误
+**综合得分**：X.X / 5.0（加权：准确×0.30+流畅×0.25+术语×0.15+语境×0.15+文化×0.10+格式×0.05）
 
-### 4. 语境适配 Context（权重 15%）
-- 5 分：完美匹配目标场景的语域、语气和文体
-- 4 分：整体适配，个别处可调整
-- 3 分：大意对了但语气/风格不太对
-- 2 分：语气明显与场景不匹配
-- 1 分：完全不符合目标场景的表达习惯
+**评级**：[优秀≥4.0 / 中等≥3.0 / 较差≥2.0 / 严重<2.0]
 
-### 5. 文化敏感度 Culture（权重 10%）
-- 5 分：完美处理文化差异、隐喻、习语、网络用语
-- 4 分：基本处理了文化差异
-- 3 分：回避了文化难点但没有出错
-- 2 分：文化元素处理不当，可能让目标读者困惑
-- 1 分：严重文化误译（如中文梗直译、量词/货币未转换）
+**各维度得分**：（表格形式，每维得分+一句话简评）
 
-### 6. 格式保持 Format（权重 5%）
-- 5 分：完美保持原文的段落、标点、排版结构
-- 4 分：基本保持，仅轻微偏差
-- 3 分：格式大体可用
-- 2 分：格式多处不一致
-- 1 分：格式混乱
+**详细发现**：（逐条列出问题，每种标注 致命/警告/可优化，附修改建议）
 
-## 输出格式要求
+**优化建议**：（按优先级排序）
+- 若得分<2.5，建议用哪类模型重译
+- 具体改写示例（原文 vs 建议译文对比）
 
-请按以下结构输出评估报告：
-
-**综合得分**：X.X / 5.0（加权计算：准确30% + 流畅25% + 术语15% + 语境15% + 文化10% + 格式5%）
-
-**评级**：[优秀 4.0-5.0 / 中等 3.0-3.9 / 较差 2.0-2.9 / 严重 <2.0]
-
-**各维度评分**：
-| 维度 | 得分 | 简评 |
-|------|------|------|
-| 准确性 | | |
-| 流畅度 | | |
-| 术语处理 | | |
-| 语境适配 | | |
-| 文化敏感度 | | |
-| 格式保持 | | |
-
-**详细发现**：
-逐条列出发现的问题。每条标注严重程度（致命/警告/可优化），并给出具体修改建议。
-
-**优化建议**：
-按优先级排序的可执行改进方案。如果评分低于 3.0，建议用哪个模型重新翻译（Claude/ChatGPT/DeepSeek 分别适合什么场景）。
-
-**改写示例**（如果适用）：
-针对最严重的问题，给出 1-2 句的改写对比（原译 vs 建议译法）。`;
-
-  document.getElementById('promptContent').textContent = prompt;
-  document.getElementById('promptResult').style.display = 'block';
-  document.getElementById('promptResult').scrollIntoView({behavior:'smooth'});
+**改写示例**：针对最严重问题，给 1-2 句改写对比。`;
 }
 
-function copyPrompt() {
-  const text = document.getElementById('promptContent').textContent;
-  navigator.clipboard.writeText(text).then(() => {
-    const btn = document.querySelector('.copy-float');
-    btn.textContent = '已复制!';
-    setTimeout(() => btn.textContent = '一键复制', 1500);
+function doGenerate() {
+  const p = buildPrompt();
+  if (!p) { alert('请同时输入中文原文和英文翻译'); return; }
+  document.getElementById('promptPreview').textContent = p;
+  const r = document.getElementById('stepResult');
+  r.classList.add('show');
+  r.scrollIntoView({behavior:'smooth'});
+}
+
+function copyOnly() {
+  const p = buildPrompt();
+  if (!p) { alert('请先输入内容'); return; }
+  navigator.clipboard.writeText(p).then(() => {
+    const btn = event.target;
+    const orig = btn.textContent;
+    btn.textContent = '已复制 ✓';
+    btn.style.background = 'var(--green)';
+    btn.style.color = '#000';
+    setTimeout(() => { btn.textContent = orig; btn.style.background = ''; btn.style.color = ''; }, 1500);
   });
 }
 
-function clearTool() {
-  document.getElementById('toolSource').value = '';
-  document.getElementById('toolTarget').value = '';
-  document.getElementById('promptResult').style.display = 'none';
+function launchAndCopy() {
+  copyOnly();
+  window.open(aiUrls[selectedAI], '_blank');
 }
 
-// ====== Tab Switching ======
+function clearTool() {
+  document.getElementById('tSource').value = '';
+  document.getElementById('tTarget').value = '';
+  document.getElementById('stepResult').classList.remove('show');
+}
+
+// ====== Demo Rendering ======
+function renderDemo(key) {
+  const d = demoResults[key];
+  let h = '<div class="section"><h2>📊 评测结果（由 Claude 真实评测）</h2>';
+  h += `<div class="overall"><div class="overall-num" style="color:${d.color}">${d.total.toFixed(1)}</div><div class="overall-grade">${d.grade}</div></div>`;
+  h += '<div class="score-grid">';
+  const rules = [
+    {k:'accuracy',n:'准确性 Accuracy',w:'30%'},{k:'fluency',n:'流畅度 Fluency',w:'25%'},
+    {k:'terminology',n:'术语 Terminology',w:'15%'},{k:'context',n:'语境 Context',w:'15%'},
+    {k:'culture',n:'文化 Culture',w:'10%'},{k:'format',n:'格式 Format',w:'5%'}
+  ];
+  rules.forEach(r => {
+    const s = d.scores[r.k]; const pct=s/5*100; const c=s>=4?'var(--green)':s>=3?'var(--yellow)':'var(--red)';
+    h += `<div class="score-item"><div class="score-label">${r.n} <span style="color:var(--muted);font-size:0.65rem">权重${r.w}</span></div><div class="score-num" style="color:${c}">${s.toFixed(1)}</div><div style="background:var(--border);border-radius:3px;height:5px;margin-top:5px"><div style="width:${pct}%;height:5px;border-radius:3px;background:${c}"></div></div></div>`;
+  });
+  h += '</div></div>';
+
+  h += '<div class="section"><h2>🔍 详细发现</h2>';
+  d.findings.forEach(f => { h += `<div class="finding ${f.sev}"><div class="f-title">${f.title}</div><div class="f-desc">${f.desc}</div></div>`; });
+  h += '</div>';
+
+  h += '<div class="section"><h2>💡 优化建议</h2><div class="howto" style="line-height:2.2">';
+  d.suggestions.forEach((s,i) => { h += `${i+1}. ${s}<br>`; });
+  h += '</div></div>';
+
+  document.getElementById(`demo-${key}-result`).innerHTML = h;
+}
+
+// ====== Tabs ======
 function switchTab(name, btn) {
   document.querySelectorAll('.demo-section').forEach(s => s.classList.remove('active'));
   document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
   btn.classList.add('active');
-  if (name === 'tool') {
-    document.getElementById('tab-tool').classList.add('active');
-  } else {
-    document.getElementById('tab-'+name).classList.add('active');
-    if (!document.getElementById('demo-'+name+'-result').innerHTML) {
-      renderDemoResult(name);
-    }
-  }
+  document.getElementById('tab-'+name).classList.add('active');
+  if (name !== 'tool' && !document.getElementById('demo-'+name+'-result').innerHTML) renderDemo(name);
 }
 
-// ====== Init ======
-window.onload = () => { renderDemoResult('ecommerce'); };
+window.onload = () => { renderDemo('ecommerce'); };
 </script>
 </body>
 </html>
